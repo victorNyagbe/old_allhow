@@ -4,7 +4,10 @@
     <div class="container">
         <div class="row justify-content-center mt-5">
             <div class="col-12 col-md-4">
-                <p class="text-center" style="font-size: 3rem;">Logo de all-how</p>
+                <div class="text-center">
+                    <img src="{{ URL::asset('assets/logos/allhowcom1.jpg') }}" alt="logo de allhow" class="w-75 img-fluid">
+                </div>
+                
                 <p class="mt-md-5 text-center" style="font-size: 2rem;">Administration Register</p>
             </div>
             <div class="col-12 col-md-8 bg-light py-4">

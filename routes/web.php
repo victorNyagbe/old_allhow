@@ -14,8 +14,24 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('visitors.home');
+    $frenchzone = 'frenchzone';
+    return view('visitors.accueil', compact('frenchzone'));
 })->name('visitors.home');
+
+Route::get('pdf', function () {
+    $frenchzone = 'frenchzone';
+    return view('visitors.accueilpdf', compact('frenchzone'));
+})->name('visitors.homepdf');
+
+Route::get('en/home', function () {
+    $englishzone = 'englishzone';
+    return view('visitors.english.home', compact('englishzone'));
+})->name('visitors.english.home');
+
+Route::get('en/pdf', function () {
+    $englishzone = 'englishzone';
+    return view('visitors.english.homepdf', compact('englishzone'));
+})->name('visitors.english.homepdf');
 
 Route::group(['prefix' => 'admin'], function () {
 
@@ -37,7 +53,11 @@ Route::group(['prefix' => 'admin'], function () {
 
     Route::get('liste-vendeurs', 'Administration\MainController@listSellers')->name('administration.listSellers');
 
-    Route::get('documents/{document}/en-attente-etude', 'Administration\DocController@showDocInPending')->name('administration.viewDocPending');
+    Route::get('documents/{document}/validate-doc', 'Administration\DocController@showDocToBeApproved')->name('administration.showDocToBeApproved');
+
+    Route::post('documents/validating-processing', 'Administration\DocController@approveDocumentByAdmin')->name('administration.approveDocument');
+
+    Route::delete('document/{document}/rejecting-processing', 'Administration\DocController@rejectDocumentByAdmin')->name('administration.rejectDocument');
 });
 
 

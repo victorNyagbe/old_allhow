@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-12 col-md-8">
+            <div class="col-12 col-md-4 mt-5">
                 @if ($errors->any())
                     <ul class="alert alert-danger alert-dismissible list-unstyled fade show mb-3" role="alert">
                         @foreach ($errors->all() as $error)
@@ -22,9 +22,8 @@
                         </button>
                     </div>
                 @endif
-            </div>
             
-            <div class="d-flex align-items-center" style="height: 80vh;">
+            
                 <form action="{{ route('sellers.login') }}" method="post"> 
                     <center>
                         <img src="{{ URL::asset('assets/logos/allhowcom1.jpg') }}" alt="logo allhowpdf" width="150" height="150" class="rounded circle">                 
@@ -39,7 +38,8 @@
                     <div class="form-group">
                         <button type="submit" class="btn btn-green btn-block">se connecter</button>
                     </div>    
-                    <a href="#" class="">Mot de passe oublié</a>                     
+                    <a href="#" class="">Mot de passe oublié ?</a> 
+                    <a href="{{ route('sellers.registrationForm') }}" class="btn btn-blue-grey btn-sm">Creer un compte</a>                    
                 </form>
             </div>
         </div>

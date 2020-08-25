@@ -18,9 +18,10 @@
 
         @font-face {
             font-family: ubuntu;
-            src: url(fonts/Ubuntu-Light.ttf);
+            src: url("{{ URL::asset('fonts/Ubuntu-Light.ttf') }}");
         }
     </style>
+    @yield('css')
 </head>
 <body>
 
@@ -28,7 +29,7 @@
     
         <!-- Navbar brand -->
         <a href="" class="navbar-brand">
-          <img class="rounded-circle" src="{{ URL::asset('assets/logos/allhowpdf.jpg') }}" height="50px;" width="50px;">
+          <img class="rounded-circle" src="{{ URL::asset('assets/logos/allhowcom1.jpg') }}" height="50px;" width="50px;">
         </a>
         
         <span class="navbar-text white-text d-block d-lg-none">
@@ -70,7 +71,7 @@
                 <a href="{{ route('administration.listSellers') }}" class="nav-link"><i class="fas fa-users"></i> Vendeurs</a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('administration.registerForm') }}" class="nav-link"><i class="fa fa-shield"></i> Inscrire un admin</a>
+                <a href="{{ route('administration.registerForm') }}" class="nav-link"><i class="fa fa-user-secret"></i> Inscrire un admin</a>
             </li>
           </ul>
           <ul class="navbar-nav ml-auto">

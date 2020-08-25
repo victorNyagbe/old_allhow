@@ -21,16 +21,22 @@
                 </form>
             </div>
         </div>
-        <div class="row mt-5">
+
+        <div class="row mt-3">
+            <div class="col-12">
+                <a href="{{ route('visitors.homepdf') }}" class="btn btn-sm z-depth-3"><i class="fa fa-file"></i> PDF</a>
+                <a href="{{ route('visitors.home') }}" class="btn btn-sm unique-color white-text"><i class="fa fa-play"></i> Vidéos</a>
+            </div>
+        </div>
+
+        <div class="row mt-3">
             
             @for ($i = 0; $i < 8; $i++)
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="jumbotron py-2 z-depth-2">
-                        <img src="{{ URL::asset('assets/logos/allhowcomweb.jpg') }}" alt="logo all-how" width="100%;">
-                        <div>
-                            <p>Comment devenir un entrepreneur....</p>
-                        </div>
-                        <div>
+                <div class="col-12 col-md-4 col-lg-3 mb-4">
+                    <div class="card z-depth-2">
+                        <img src="{{ URL::asset('assets/logos/pdf.jpg') }}" alt="logo all-how" class="card-img-top">
+                        <div class="card-body elegant-color">
+                            <h5 class="card-title white-text">Comment devenir un entrepreneur....</h5>
                             <a href="" class="btn btn-block green darken-4 white-text d-none d-lg-block">télécharger</a>
                             <a href="" class="btn btn-block green darken-4 white-text btn-sm d-block d-lg-none">télécharger</a>
                         </div>

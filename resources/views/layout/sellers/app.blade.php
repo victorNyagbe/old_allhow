@@ -21,7 +21,7 @@
 
         @font-face {
             font-family: ubuntu;
-            src: url(fonts/Ubuntu-Light.ttf);
+            src: url("{{ URL::asset('fonts/Ubuntu-Light.ttf') }}");
         }
     </style>
 </head>
@@ -79,7 +79,7 @@
           <ul class="navbar-nav ml-auto">
             @if (session()->get('id'))
               <li class="nav-item dropdown">
-                <div style="width: 45px; height: 45px; overflow: hidden;" class="rounded-circle">
+                <div style="width: 45px; height: 45px; overflow: hidden;" class="rounded-circle" style="cursor: pointer;">
                   @if (session()->get('profile') == null)
                     <div style="width: 45px; height: 45px; line-height: 40px;"  style="cursor: pointer;" class="bg-primary text-center" id="profileDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <b class="white-text" style="font-size: 1.5rem;">{{ \Illuminate\Support\Str::substr(session()->get('nom'), 0, 1) }}</b>

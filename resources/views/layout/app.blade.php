@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{{ URL::asset('fontawesome/css/fontawesome.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('uikit/css/uikit.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('uikit/css/uikit-rtl.css') }}">
-    <title>allhowpdf.com</title>
+    <title>all-how.com</title>
     <style>
         .allhowpdf-color {
             background-color: #ff3c3c;
@@ -23,7 +23,7 @@
 
         @font-face {
             font-family: ubuntu;
-            src: url(fonts/Ubuntu-Light.ttf);
+            src: url("{{ URL::asset('fonts/Ubuntu-Light.ttf') }}");
         }
     </style>
 </head>
@@ -68,14 +68,28 @@
     </nav>
     <div class="d-none d-lg-block">
         <div class="d-flex">
-            <a href="#" class="mr-auto btn btn-lg btn-primary">ENGLISH</a>
-            <a href="{{ route('sellers.registrationForm') }}" class="ml-auto btn btn-lg btn-success">Devenir vendeur de PDF</a>
+            @isset($frenchzone)
+              <a href="{{ route('visitors.english.home') }}" class="mr-auto btn btn-lg btn-primary">ENGLISH</a>
+            @endisset
+            
+            @isset($englishzone)
+              <a href="{{ route('visitors.home') }}" class="mr-auto btn btn-lg btn-primary">French</a>
+            @endisset
+
+            <a href="{{ route('sellers.registrationForm') }}" class="ml-auto btn btn-lg btn-success">Devenir vendeur de contenu</a>
         </div>
     </div>
     <div class="d-block d-lg-none">
         <div class="d-flex">
-            <a href="#" class="mr-auto btn btn-md btn-primary">English</a>
-            <a href="{{ route('sellers.registrationForm') }}" class="ml-auto btn btn-md btn-success">Devenir vendeur de PDF</a>
+            @isset($frenchzone)
+              <a href="{{ route('visitors.english.home') }}" class="mr-auto btn btn-lg btn-primary">ENGLISH</a>
+            @endisset
+
+            @isset($englishzone)
+              <a href="{{ route('visitors.home') }}" class="mr-auto btn btn-lg btn-primary">French</a>
+            @endisset
+
+            <a href="{{ route('sellers.registrationForm') }}" class="ml-auto btn btn-md btn-success">Devenir vendeur de contenu</a>
         </div>
     </div>
     
@@ -90,6 +104,6 @@
     <script src="{{ URL::asset('mdb/js/mdb.js') }}"></script>
     <script src="{{ URL::asset('mdb/js/popper.js') }}"></script>
     <script src="{{ URL::asset('uikit/js/uikit.js') }}"></script>
-    <script src="{{ URL::asset('uikit/js/uikit-icon.js') }}"></script>
+    <script src="{{ URL::asset('uikit/js/uikit-icons.js') }}"></script>
 </body>
 </html>

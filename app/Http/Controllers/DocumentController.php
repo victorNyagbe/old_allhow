@@ -32,13 +32,13 @@ class DocumentController extends Controller
             'fichier_doc.mimes' => 'Votre document doit avoir une extension .pdf ou .doc ou .docx'
         ]);
 
-        $taille = $_FILES['fichier_doc']['size'];
+        $taille = $_FILES['fichier_doc']['size'] / 1000000;
 
         if (request()->has('fichier_doc')) {
             $documentToBeExaminated = Document::create([
                 'nom' => $request->input('document'),
-                'taille' => $taille,
-                'path' => request()->fichier_doc->storeAs('db/fichiers/', time() . "_" . $request->file('fichier_doc')->getClientOriginalName(), 'public'),
+                'taillepdf' => $taille,
+                'pathpdf' => request()->fichier_doc->storeAs('db/fichiers/', time() . "_" . $request->file('fichier_doc')->getClientOriginalName(), 'public'),
                 'status' => 0,
                 'vendeur_id' => session()->get('id')
             ]);
@@ -55,7 +55,7 @@ class DocumentController extends Controller
             'document' => $documentToBeExaminated->path        
         ];
 
-        Mail::to($allhowMail)->subject('Document de ' . $vendeur->username)->send(new SellerSendDocument($data));
+        Mail::to($allhowMail)->send(new SellerSendDocument($data))->subject('Document de ' . $vendeur->username);
 
         return redirect(route('sellers.documents'))->with('success', 'Votre document a été envoyé avec succès. On vous donnera le statut du document après son étude');    
     }

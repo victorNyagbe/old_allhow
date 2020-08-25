@@ -16,11 +16,15 @@ class CreateDocumentsTable extends Migration
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
-            $table->string('taille');
-            $table->string('path');
+            $table->string('taillepdf');
+            $table->string('pathpdf');
+            $table->string('taillevideo')->nullable();
+            $table->string('pathvideo')->nullable();
             $table->string('vendeur_id');
             $table->integer('downloaded')->nullable();
+            $table->string('version')->nullable();
             $table->tinyInteger('status');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -14,7 +14,7 @@
         <div class="row mt-5">
             <div class="col-lg-4 col-md-6 col-sm-12 mb-lg-0 mb-3">
                 <div class="card blue">
-                    <div class="card-body">
+                    <div class="card-body z-depth-2">
                         <table width="100%">
                             <tr>
                                 <td>
@@ -33,7 +33,7 @@
             </div>
             <div class="col-lg-4 col-md-6 col-sm-12 mb-lg-0 mb-3">
                 <div class="card red">
-                    <div class="card-body">
+                    <div class="card-body z-depth-2">
                         <table width="100%">
                             <tr>
                                 <td>
@@ -52,7 +52,7 @@
             </div>
             <div class="col-lg-4 col-md-6 col-sm-12 mb-lg-0 mb-3">
                 <div class="card orange">
-                    <div class="card-body">
+                    <div class="card-body z-depth-2">
                         <table width="100%">
                             <tr>
                                 <td>
@@ -77,8 +77,8 @@
             </div>
         </div>
         <div class="row-justify-content-center mt-5">
-            <p class="text-center text-muted text-uppercase" style="font-size: 2em; opacity: 0.6;">allhowpdf</p>
-        <p class="text-center text-muted text-uppercase" style="font-size: 2em; opacity: 0.6;">panel {{ session()->get('nom') }}</p>
+            <p class="text-center text-muted text-uppercase" style="font-size: 2em; opacity: 0.6;">plateforme allhow</p>
+        <p class="text-center text-muted text-uppercase" style="font-size: 2em; opacity: 0.6;">panel de {{ session()->get('nom') }}</p>
         </div>
     </div>
 @endsection
