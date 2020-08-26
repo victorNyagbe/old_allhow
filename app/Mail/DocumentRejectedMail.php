@@ -31,6 +31,7 @@ class DocumentRejectedMail extends Mailable
     public function build()
     {
         return $this->from('deblaa.ap@gmail.com', 'all-how')
+                    ->subject('Document rejeté')
                     ->view('emails.admin.rejectDocument');
     }
 }

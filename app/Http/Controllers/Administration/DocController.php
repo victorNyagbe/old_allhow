@@ -55,11 +55,14 @@ class DocController extends Controller
             if (request()->has('docPDFFr') && request()->has('docVideoFr')) {
 
                 File::delete([
-                    public_path('db/fichiers/temp/pdfs/' . $documentApproved->pathpdf)
+                    public_path('storage/' . $documentApproved->pathpdf)
                 ]);
 
-                $taille_pdf = $_FILES['docPDFFr']['size'] / 1000000;
-                $taille_video = $_FILES['docVideoFr']['size'] / 1000000;
+                $taille_pdfFr= $_FILES['docPDFFr']['size'] / 1000000;
+                $taille_videoFr = $_FILES['docVideoFr']['size'] / 1000000;
+
+                $taille_pdfEn = $_FILES['docPDFEn']['size'] / 1000000;
+                $taille_videoEn = $_FILES['docVideoEn']['size'] / 1000000;
 
                 $documentApproved->update([
                     'pathpdf' => request()->docPDFFr->storeAs('db/fichiers/fr/pdfs/', time() . "_" . $request->file('docPDFFr')->getClientOriginalName(), 'public'),
@@ -67,8 +70,8 @@ class DocController extends Controller
                     'nom' => $request->input('docNameFr'),
                     'vendeur_id' => $request->input('docAuthorId'),
                     'status' => 1,
-                    'taillepdf' => $taille_pdf,
-                    'taillevideo' => $taille_video,
+                    'taillepdf' => $taille_pdfFr,
+                    'taillevideo' => $taille_videoFr,
                     'version' => 'french'
                 ]);
 
@@ -78,8 +81,8 @@ class DocController extends Controller
                     'nom' => $request->input('docNameEn'),
                     'vendeur_id' => $request->input('docAuthorId'),
                     'status' => 1,
-                    'taillepdf' => $taille_pdf,
-                    'taillevideo' => $taille_video,
+                    'taillepdf' => $taille_pdfEn,
+                    'taillevideo' => $taille_videoEn,
                     'version' => 'english'
                 ]);
 
@@ -94,7 +97,7 @@ class DocController extends Controller
                 'author_mail' => $author_email
             ];
 
-            Mail::to($author_email)->send(new DocumentApprovedMail($data))->subject('Validation Document');
+            Mail::to($author_email)->send(new DocumentApprovedMail($data));
 
             return redirect(route('administration.docApproved'))->with('success', 'Le document ' . $documentApproved->nom . ' de ' . $author . ' a été approuvé avec succès. La version anglaise est ' . $documentTranslated->nom);
         }
@@ -103,11 +106,12 @@ class DocController extends Controller
     public function rejectDocumentByAdmin($document) {
         $findDocument = Document::find($document);
 
-        dd($findDocument);
-
         if ($findDocument == null) {
+
             return back()->with('error', 'Ce document n\'existe pas');
+
         } else {
+
             $documentToBeRejectedName = $findDocument->nom;
 
             $seller = Vendeur::where('id', $findDocument->vendeur_id)->first();
@@ -120,7 +124,11 @@ class DocController extends Controller
 
             $findDocument->delete();
 
-            Mail::to($seller->email)->send(new DocumentRejectedMail($data))->subject('Document rejeté');
+            File::delete([
+                public_path('storage' . $findDocument->pathpdf)
+            ]);
+
+            Mail::to($seller->email)->send(new DocumentRejectedMail($data));
 
             return back()->with('success', 'Le document ' . $documentToBeRejectedName . ' a été rejeté');
         }

@@ -10,7 +10,7 @@
                             <th>Nom du document</th>
                             <th>Auteur du document</th>
                             <th>Taille du document</th>
-                            <th>Date de publication</th>
+                            <th>Date de refus</th>
                             <th class="text-center" wifth="100">Action</th>
                         </tr>
                     </thead>
@@ -19,7 +19,7 @@
                             <tr>
                                 <td>{{ $rejectedDocument->nom }}</td>
                                 <td>{{ $rejectedDocument->vendeur->username }}</td>
-                                <td>{{ $rejectedDocument->taille }}</td>
+                                <td>{{ $rejectedDocument->taillepdf . " Mo" }}</td>
                                 <td>{{ $rejectedDocument->created_at->format('d-m-Y') }}</td>
                                 <td>
                                     <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Supprimer</button>

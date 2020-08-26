@@ -12,7 +12,7 @@ class MainController extends Controller
     public function dashboard(){
         $countApprovedDocuments = Document::where('status', 1)->count();
         $countPendingDocuments = Document::where('status', 0)->count();
-        $countRejectedDocuments = Document::where('deleted_at', '<>', null)->count();
+        $countRejectedDocuments = Document::onlyTrashed()->count();
         $countSellers = Vendeur::all()->count();
         return view('administrations.dashboard', compact('countApprovedDocuments', 'countPendingDocuments', 'countRejectedDocuments', 'countSellers'));
     }
@@ -28,7 +28,7 @@ class MainController extends Controller
     }
 
     public function documentsRejected() {
-        $rejectedDocuments = Document::where('deleted_at', '<>', null)->get();
+        $rejectedDocuments = Document::onlyTrashed()->get();
         return view('administrations.docRejected', compact('rejectedDocuments'));
     }
 

@@ -31,6 +31,7 @@ class DocumentApprovedMail extends Mailable
     public function build()
     {
         return $this->from('deblaa.ap@gmail.com', 'allhow')
+                    ->subject('Document approuvé')
                     ->view('emails.admin.approveDocument');
     }
 }

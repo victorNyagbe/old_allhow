@@ -31,6 +31,7 @@ class SellerSendDocument extends Mailable
     public function build()
     {
         return $this->from($this->data['email'], $this->data['username'])
+            ->subject('Envoi de document')
             ->view('emails.sellers.sendDocument')
             ->attach(public_path('storage/' . $this->data['document']));
     }

@@ -38,7 +38,7 @@ class DocumentController extends Controller
             $documentToBeExaminated = Document::create([
                 'nom' => $request->input('document'),
                 'taillepdf' => $taille,
-                'pathpdf' => request()->fichier_doc->storeAs('db/fichiers/', time() . "_" . $request->file('fichier_doc')->getClientOriginalName(), 'public'),
+                'pathpdf' => request()->fichier_doc->storeAs('db/fichiers/temp/pdfs/', time() . "_" . $request->file('fichier_doc')->getClientOriginalName(), 'public'),
                 'status' => 0,
                 'vendeur_id' => session()->get('id')
             ]);
@@ -52,10 +52,10 @@ class DocumentController extends Controller
             'username' => $vendeur->username,
             'email' => $vendeur->email,
             'nomDoc' => $documentToBeExaminated->nom,
-            'document' => $documentToBeExaminated->path        
+            'document' => $documentToBeExaminated->pathpdf       
         ];
 
-        Mail::to($allhowMail)->send(new SellerSendDocument($data))->subject('Document de ' . $vendeur->username);
+        Mail::to($allhowMail)->send(new SellerSendDocument($data));
 
         return redirect(route('sellers.documents'))->with('success', 'Votre document a été envoyé avec succès. On vous donnera le statut du document après son étude');    
     }
