@@ -27,7 +27,7 @@
                                     @csrf
                                     @method('DELETE')
                                     <a href="{{ route('administration.showDocToBeApproved', $pendingDocument->id) }}" class="btn btn-sm btn-info" title="Valider le document"><i class="fas fa-check"></i></a>
-                                    <button type="submit" class="btn btn-danger btn-sm" title="Rejeter le document" onclick="return confirm('Veuillez confirmer le rejet du document {{ $pendingDocument->nom }} de l\'auteur {{ $pendingDocument->vendeur->username }}')"><i class="fas fa-times-circle"></i></button>
+                                    <button type="submit" class="btn btn-danger btn-sm" title="Rejeter le document" onclick="return confirm('Veuillez confirmer le rejet du document {{ $pendingDocument->nom }} de l\'auteur {{ $pendingDocument->vendeur->username }}')"><i class="fas fa-times"></i></button>
                                   </form>
                               </td>
                           </tr>

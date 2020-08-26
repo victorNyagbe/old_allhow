@@ -82,14 +82,14 @@
     <div class="d-block d-lg-none">
         <div class="d-flex">
             @isset($frenchzone)
-              <a href="{{ route('visitors.english.home') }}" class="mr-auto btn btn-lg btn-primary">ENGLISH</a>
+              <a href="{{ route('visitors.english.home') }}" class="mr-auto btn btn-sm btn-primary">ENGLISH</a>
             @endisset
 
             @isset($englishzone)
-              <a href="{{ route('visitors.home') }}" class="mr-auto btn btn-lg btn-primary">French</a>
+              <a href="{{ route('visitors.home') }}" class="mr-auto btn btn-sm btn-primary">French</a>
             @endisset
 
-            <a href="{{ route('sellers.registrationForm') }}" class="ml-auto btn btn-md btn-success">Devenir vendeur de contenu</a>
+            <a href="{{ route('sellers.registrationForm') }}" class="ml-auto btn btn-sm btn-success">Devenir vendeur de contenu</a>
         </div>
     </div>
     

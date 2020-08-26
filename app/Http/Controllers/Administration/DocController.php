@@ -9,6 +9,7 @@ use App\Vendeur;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\DocumentApprovedMail;
+use App\Mail\DocumentRejectedMail;
 
 class DocController extends Controller
 {
@@ -24,10 +25,10 @@ class DocController extends Controller
             'docAuthor' => 'required',
             'docNameFr' => 'required',
             'docNameEn' => 'required',
-            'docPDFFr' => 'required',
-            'docPDFEn' => 'required',
-            'docVideoFr' => 'required',
-            'docVideoEn' => 'required'
+            'docPDFFr' => 'required|mimes:pdf',
+            'docPDFEn' => 'required|mimes:pdf',
+            'docVideoFr' => 'required|mimes:mp4,avi',
+            'docVideoEn' => 'required|mimes:mp4,avi'
         ],
         [
             'docId.required' => 'L\'identité de ce document est inexistante',
@@ -35,9 +36,13 @@ class DocController extends Controller
             'docNameFr.required' => 'Veuillez renseigner le nom de ce document en français',
             'docNameEn.required' => 'Veuillez renseigner le nom de ce document en anglais',
             'docPDFFr.required' => 'Veuillez charger le PDF du document en version française',
+            'docPDFFr.mimes' => 'Veuillez charger le PDF du document version française en extension .pdf',
             'docPDFEn.required' => 'Veuillez charger le PDF du document en version anglaise',
+            'docPDFEn.mimes' => 'Veuillez charger le PDF du document version anglaise en extension .pdf',
             'docVideoFr.required' => 'Veuillez charger la vidéo du document en version française',
+            'docVideoFr.mimes' => 'Veuillez charger la vidéo du document version française en extension .mp4 ou .avi',
             'docVideoEn.required' => 'Veuillez charger la vidéo du document en version anglaise',
+            'docVideoEn.mimes' => 'Veuillez charger la vidéo du document version anglaise en extension .mp4 ou .avi',
             'docAuthor.required' => 'Champ auteur non renseigné'
         ]);
 
@@ -47,7 +52,7 @@ class DocController extends Controller
             return back()->with('error', 'Ce document est inexistant ou introuvable');
         } else {
 
-            if (request()->has('docPDF') && request()->has('docVideo')) {
+            if (request()->has('docPDFFr') && request()->has('docVideoFr')) {
 
                 File::delete([
                     public_path('db/fichiers/temp/pdfs/' . $documentApproved->pathpdf)
@@ -98,12 +103,26 @@ class DocController extends Controller
     public function rejectDocumentByAdmin($document) {
         $findDocument = Document::find($document);
 
+        dd($findDocument);
+
         if ($findDocument == null) {
             return back()->with('error', 'Ce document n\'existe pas');
         } else {
+            $documentToBeRejectedName = $findDocument->nom;
+
+            $seller = Vendeur::where('id', $findDocument->vendeur_id)->first();
+
+            $data = [
+                'seller_name' => $seller->username,
+                'seller_email' => $seller->email,
+                'nom_document' => $findDocument->nom
+            ];
+
             $findDocument->delete();
 
-            return back()->with('success', 'Le document a été rejeté avec succès');
+            Mail::to($seller->email)->send(new DocumentRejectedMail($data))->subject('Document rejeté');
+
+            return back()->with('success', 'Le document ' . $documentToBeRejectedName . ' a été rejeté');
         }
     }
 }
