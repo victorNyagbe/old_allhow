@@ -4,8 +4,8 @@
     <div class="container">
         <div class="row mt-2">
             <div class="col-12">
-                <p class="text-center d-none d-lg-block" style="font-size: 2.5rem;">Trouvez le comment de toute chose en Vidéos / PDF <small class="text-muted" style="font-size: 18px;">En 2 pages maximum</small></p>
-                <p class="text-center d-block d-lg-none" style="font-size: 1.75rem;">Trouvez le comment de toute chose en Vidéos / PDF <small class="text-muted" style="font-size: 12px;">En 2 pages maximum</small></p>
+                <p class="text-center d-none d-lg-block" style="font-size: 2.5rem;">Trouvez le comment de toute chose en Vidéos / PDF <small class="text-muted" style="font-size: 18px;">En moins de 5 minutes</small></p>
+                <p class="text-center d-block d-lg-none" style="font-size: 1.75rem;">Trouvez le comment de toute chose en Vidéos / PDF <small class="text-muted" style="font-size: 12px;">En moins de 5 minutes</small></p>
             </div>
         </div>
         <div class="row mt-2 justify-content-center">
