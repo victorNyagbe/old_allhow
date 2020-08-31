@@ -13,7 +13,7 @@
 <body>
     <p class="text-justify">
         Cher(e) {{ $data['seller_name'] }}, nous avons le regret de vous annoncer que votre document portant sur le
-        sujet <strong>{{ $data['nom_document'] }} a été rejeté après étude.</strong>
+        sujet <strong>{{ $data['nom_document'] }}</strong> a été rejeté après étude.
     </p>
     <p class="mt-5 text-center ">L'équipe All-how</p>
 </body>

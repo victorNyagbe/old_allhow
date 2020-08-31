@@ -20,6 +20,7 @@ class CreateVendeursTable extends Migration
             $table->string('password');
             $table->integer('wallet');
             $table->string('profile')->nullable();
+            $table->string('forget_password_code')->nullable();
             $table->timestamps();
         });
     }

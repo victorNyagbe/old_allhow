@@ -23,26 +23,23 @@
                     </div>
                 @endif
             
+                <center>
+                    <img src="{{ URL::asset('assets/logos/allhowcom1.jpg') }}" alt="logo allhowpdf" width="150" height="150" class="rounded circle">                 
+                </center>
             
-                <form action="{{ route('sellers.login') }}" method="post"> 
+                <form action="{{ route('sellers.forgotPassword') }}" method="post"> 
 
-                    <center>
-                        <img src="{{ URL::asset('assets/logos/allhowcom1.jpg') }}" alt="logo allhowpdf" width="150" height="150" class="rounded circle">                 
-                    </center>
                     @csrf
+
                     <div class="form-group">    
                         <input type="email" name="email" id="email" class="form-control" placeholder="E-mail">
-                    </div>  
-                    <div class="form-group">    
-                        <input type="password" name="password" id="password" class="form-control" placeholder="Mot de passe">
-                    </div>  
+                    </div>
+
                     <div class="form-group">
-                        <button type="submit" class="btn btn-green btn-block">se connecter</button>
-                    </div>    
-                                        
+                        <button type="submit" class="btn btn-green btn-block text-lowercase"><span class="text-capitalize">Réinitialiser</span> mon mot de passe</button>
+                    </div> 
+
                 </form>
-                <a href="{{ route('sellers.forgotPasswordForm') }}">Mot de passe oublié ?</a> 
-                <a href="{{ route('sellers.registrationForm') }}" class="btn btn-blue-grey btn-sm">Creer un compte</a>
             </div>
         </div>
     </div>

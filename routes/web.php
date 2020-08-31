@@ -85,3 +85,11 @@ Route::get('sellers/envoyer-document', 'DocumentController@SellerSendDocumentFor
 Route::post('sellers/envoyer-document/processing', 'DocumentController@SellerSendDocument')->name('sellers.sendDoc');
 
 Route::get('sellers/logout', 'VendeurController@logout')->name('sellers.logout');
+
+Route::get('sellers/forgotPassword', 'VendeurController@forgotPasswordForm')->name('sellers.forgotPasswordForm');
+
+Route::post('sellers/forgotPassword/processing', 'VendeurController@forgotPassword')->name('sellers.forgotPassword');
+
+Route::get('sellers/resetPassword', 'VendeurController@resetPasswordForm')->name('sellers.resetPasswordForm');
+
+Route::post('sellers/resetPassword/processing', 'VendeurController@resetPassword')->name('sellers.resetPassword');

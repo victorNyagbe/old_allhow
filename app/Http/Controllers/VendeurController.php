@@ -6,12 +6,15 @@ use Illuminate\Http\Request;
 use App\Vendeur;
 use App\Document;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ForgetPasswordCodeMail;
+use App\Mail\PasswordResetValidation;
 
 class VendeurController extends Controller
 {
 
     public function __construct() {
-        $this->middleware('check.session')->except(['loginForm', 'login', 'registrationForm', 'register']);
+        $this->middleware('check.session')->only(['updateProfileForm', 'updateProfile', 'index', 'logout']);
     }
 
     public function loginForm() {
@@ -119,6 +122,93 @@ class VendeurController extends Controller
         $countDocument = Document::where('vendeur_id', session()->get('id'))->count();
         $documentsDownloaded = Document::where('vendeur_id', session()->get('id'))->value('downloaded');
         return view('sellers.index', compact('countDocument', 'documentsDownloaded'));
+    }
+
+    public function forgotPasswordForm() {
+        return view('sellers.forgotpassword');
+    }
+
+    public function forgotPassword(Request $request) {
+
+        $request->validate([
+            'email' => 'required'
+        ],
+        [
+            'email.required' => 'Veuillez renseigner votre email'
+        ]);
+
+        $find_email = Vendeur::where('email', $request->input('email'))->first();
+
+        if ($find_email == null) {
+
+            return back()->with('error', 'Cet email est invalide. Adresse électronique inexistante');
+
+        } else {
+
+            $forgetPasswordCode = random_int(100000, 999998);
+
+            $find_email->update([
+                'forget_password_code' => $forgetPasswordCode
+            ]);
+
+            $data = [
+                'forget_password_code' => $forgetPasswordCode,
+                'email' => $find_email->email,
+                'username' => $find_email->username,
+                'reset_password_link' => 'sellers/resetPassword'
+            ];
+
+            Mail::to($find_email->email)->send(new ForgetPasswordCodeMail($data));
+
+            
+            return redirect()->route('sellers.resetPasswordForm')->with('success', 'Un mail a été envoyé à votre adresse électronique. Veuillez poursuivre la réinitialistion en ouvrant votre email et en suivant les instructions');
+        }
+    }
+
+    public function resetPasswordForm() {
+        return view('sellers.resetpassword');
+    }
+
+    public function resetPassword(Request $request) {
+
+        $request->validate([
+            'forget_password_code' => 'required',
+            'new_password' => 'required|confirmed',
+            'confirmation_password' => 'required'
+        ],
+        [
+            'forget_password_code.required' => 'Veuillez saisir le code de vérification',
+            'new_password.required' => 'Veuillez renseigner votre nouveau mot de passe',
+            'new_password.confirmed' => 'Mot de passe non identique',
+            'confirmation_password' => 'Veuillez confirmer votre mot de passe'
+        ]);
+
+        $findSeller = Vendeur::where('forget_password_code', $request->input('forget_password_code'))->first();
+
+        if ($findSeller == null) {
+            return back()->with('error', 'Le code de vérification est invalide');
+        } else {
+
+            $findSeller->update([
+                'password' => Hash::make($request->input('new_password')),
+                'forget_password_code' => '******'
+            ]);
+
+            session()->put('id', $findSeller->id);
+            session()->put('nom', $findSeller->username);
+            session()->put('profile', $findSeller->profile);
+            session()->put('email', $findSeller->email);
+            session()->put('wallet', $findSeller->wallet);
+
+            $data = [
+                'username' => $findSeller->username
+            ];
+
+            Mail::to($findSeller->email)->send(new PasswordResetValidation($data));
+
+            return redirect(route('sellers.home'));
+        }
+
     }
 
     public function logout() {
