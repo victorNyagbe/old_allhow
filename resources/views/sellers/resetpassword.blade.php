@@ -50,7 +50,7 @@
                     </div>
 
                     <div class="form-group">
-                        <input type="password" autocomplete="false" name="confirmation_password" id="confirmation_password" class="form-control" placeholder="confirmer">
+                        <input type="password" autocomplete="false" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="confirmer">
                     </div>
 
                     <div class="form-group">

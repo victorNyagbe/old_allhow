@@ -8,7 +8,7 @@ use App\Document;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ForgetPasswordCodeMail;
-use App\Mail\PasswordResetValidation;
+use App\Mail\PasswordResetValidationMail;
 
 class VendeurController extends Controller
 {
@@ -180,7 +180,7 @@ class VendeurController extends Controller
             'forget_password_code.required' => 'Veuillez saisir le code de vérification',
             'new_password.required' => 'Veuillez renseigner votre nouveau mot de passe',
             'new_password.confirmed' => 'Mot de passe non identique',
-            'confirmation_password' => 'Veuillez confirmer votre mot de passe'
+            'password_confirmation' => 'Veuillez confirmer votre mot de passe'
         ]);
 
         $findSeller = Vendeur::where('forget_password_code', $request->input('forget_password_code'))->first();
@@ -204,7 +204,7 @@ class VendeurController extends Controller
                 'username' => $findSeller->username
             ];
 
-            Mail::to($findSeller->email)->send(new PasswordResetValidation($data));
+            Mail::to($findSeller->email)->send(new PasswordResetValidationMail($data));
 
             return redirect(route('sellers.home'));
         }
