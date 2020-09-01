@@ -31,7 +31,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark allhowpdf-color">
     
       <!-- Navbar brand -->
-      <a href="" class="navbar-brand">
+      <a href="{{ route('visitors.home') }}" class="navbar-brand">
         <img class="rounded-circle" src="{{ URL::asset('assets/logos/allhowcom1.jpg') }}" height="50px;" width="50px;">
       </a>
       

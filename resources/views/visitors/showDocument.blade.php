@@ -5,6 +5,9 @@
         <div class="row justify-content-center mt-5">
             <div class="col-12 col-md-8 mt-md-3 mt-lg-0">
                 <div class="jumbotron z-depth-3 pt-1">
+                    <?php
+                        use Illuminate\Support\Str;
+                    ?>
 
                     <center>
                         <img src="{{ URL::asset('assets/logos/allhowcom1.jpg') }}" alt="logo allhowpdf" width="150" height="150" class="rounded circle">                 
@@ -23,7 +26,7 @@
                         </tr>
                         <tr>
                             <td>Taille du fichier:</td>
-                            <td class="font-weight-bold">{{ $fileType == 'Video' ? $file->taille_video : $file->taille_pdf ." Mo" }}</td>
+                            <td class="font-weight-bold">{{ $fileType == 'Video' ? Str::substr($video_taille, 0, 4) : Str::substr($pdf_taille, 0, 4) }} Mo</td>
                         </tr>
                         <tr>
                             <td>Version:</td>
@@ -31,7 +34,7 @@
                         </tr>
                         <tr>
                             <td>Téléchargements:</td>
-                            <td class="font-weight-bold">{{ $document->downloaded }}</td>
+                            <td class="font-weight-bold">{{ $document->downloaded == NUll ? '-' : $document->downloaded }}</td>
                         </tr>
                     </table>
 

@@ -61,6 +61,8 @@ class DocController extends Controller
                     public_path('storage/' . $fileSendBySeller->path_pdf)
                 ]);
 
+                $fileSendBySeller->delete();
+
                 $taille_pdfFr= $_FILES['docPDFFr']['size'] / 1000000;
                 $taille_videoFr = $_FILES['docVideoFr']['size'] / 1000000;
 
@@ -96,7 +98,7 @@ class DocController extends Controller
                     'path_video' => request()->docVideoEn->storeAs('db/fichiers/en/videos/', time() . "_" . $request->file('docVideoEn')->getClientOriginalName(), 'public'),
                     'taille_pdf' => $taille_pdfEn,
                     'taille_video' => $taille_videoEn,
-                    'document_id' => $documentApproved->id
+                    'document_id' => $documentTranslated->id
                 ]);
 
             }

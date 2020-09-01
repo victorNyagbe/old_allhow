@@ -20,15 +20,25 @@ class MainController extends Controller
             if ($document == null) {
                 abort('404');
             } else {
+                $pdf_path = '';
+                $pdf_taille = '';
+                $video_path = '';
+                $video_taille = '';
 
                 switch ($fileTypeIdentity) {
                     case '2294':
-                        $file = Fichier::where('document_id', $document->id)->get(['taille_video', 'path_video']);
+                        $video_taille = Fichier::where('document_id', $document->id)->value('taille_video');
+
+                        $video_path = Fichier::where('document_id', $document->id)->value('path_video');
+
                         $fileType = 'Video';
                         break;
 
                     case '1146':
-                        $file = Fichier::where('document_id', $document->id)->get(['taille_pdf', 'path_pdf']);
+                        $pdf_taille = Fichier::where('document_id', $document->id)->value('taille_pdf');
+
+                        $pdf_path = Fichier::where('document_id', $document->id)->value('path_pdf');
+
                         $fileType = 'PDF';
                         break;
                     
@@ -37,7 +47,7 @@ class MainController extends Controller
                         break;
                 }
 
-                return view('visitors.showDocument', compact('document', 'file', 'fileType'));
+                return view('visitors.showDocument', compact('document', 'video_taille', 'video_path', 'pdf_taille', 'pdf_path', 'fileType'));
             
             }
         }
@@ -69,12 +79,18 @@ class MainController extends Controller
     }
 
     public function getFrenchDocs() {
-        $frenchDocs = Document::where('version', 'french')->simplePaginate(20);
+        $frenchDocs = Document::where([
+            ['version', '=', 'french'],
+            ['status', '=', 1]
+        ])->simplePaginate(20);
         return $frenchDocs;
     }
 
     public function getEnglishDocs() {
-        $englishDocs = Document::where('version', 'english')->simplePaginate(20);
+        $englishDocs = Document::where([
+            ['version', '=', 'english'],
+            ['status', '=', 1]
+        ])->simplePaginate(20);
         return $englishDocs;
     }
 }

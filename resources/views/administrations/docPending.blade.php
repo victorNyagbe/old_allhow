@@ -20,7 +20,7 @@
                           <tr>
                               <td>{{ $pendingDocument->nom }}</td>
                               <td>{{ $pendingDocument->vendeur->username }}</td>
-                              <td>{{ $pendingDocument->taillepdf . " Mo" }}</td>
+                              <td>{{ \Illuminate\Support\Str::substr(\App\Fichier::where('document_id', $pendingDocument->id)->value('taille_pdf'), 0, 4) . " Mo" }}</td>
                               <td>{{ $pendingDocument->created_at->format('d-m-Y') }}</td>
                               <td class="text-center">
                                   <form action="{{ route('administration.rejectDocument', $pendingDocument->id) }}" method="post">

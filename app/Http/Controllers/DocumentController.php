@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Document;
 use App\Vendeur;
+use App\Fichier;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SellerSendDocument;
 
@@ -41,7 +42,7 @@ class DocumentController extends Controller
                 'vendeur_id' => session()->get('id')
             ]);
 
-            $documentFiles = Document::create([
+            $documentFiles = Fichier::create([
                 'path_pdf' => request()->fichier_doc->storeAs('db/fichiers/temp/pdfs/', time() . "_" . $request->file('fichier_doc')->getClientOriginalName(), 'public'),
                 'taille_pdf' => $taille,
                 'document_id' => $documentToBeExaminated->id
@@ -56,7 +57,7 @@ class DocumentController extends Controller
             'username' => $vendeur->username,
             'email' => $vendeur->email,
             'nomDoc' => $documentToBeExaminated->nom,
-            'document' => $documentFiles->path       
+            'document' => $documentFiles->path_pdf      
         ];
 
         Mail::to($allhowMail)->send(new SellerSendDocument($data));

@@ -64,7 +64,7 @@
 
 
                         <div class="card-body">
-                            <p class="card-title font-weight-bold">Comment devenir un entrepreneur....</p>
+                            <p class="card-title font-weight-bold" title="{{ $document->nom }}">{{ \Illuminate\Support\Str::substr($document->nom, 0, 20) . "..." }}</p>
                             <span class="float-right"><i class="fas fa-download"></i> 200</span>
                             <a href="{{ $document->pathShowDoc() }}" class="btn btn-block green darken-4 white-text d-none d-lg-block">télécharger</a>
                             <a href="{{ $document->pathShowDoc() }}" class="btn btn-block green darken-4 white-text btn-sm d-block d-lg-none">télécharger</a>

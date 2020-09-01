@@ -13,42 +13,46 @@
         </div>
         <div class="row mt-5">
             <div class="col-lg-4 col-md-6 col-sm-12 mb-lg-0 mb-3">
-                <div class="card blue">
-                    <div class="card-body z-depth-2">
-                        <table width="100%">
-                            <tr>
-                                <td>
-                                    <i class="fas fa-book fa-4x white-text"></i>
-                                </td>
-                                <td class="text-right">
-                                    <div class="white-text">
-                                        Documents
-                                        <h2 class="m-0 p-0">{{ $countDocument }}</h2>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
+                <a href="{{ route('sellers.documents') }}">
+                    <div class="card blue">
+                        <div class="card-body z-depth-2">
+                            <table width="100%">
+                                <tr>
+                                    <td>
+                                        <i class="fas fa-book fa-4x white-text"></i>
+                                    </td>
+                                    <td class="text-right">
+                                        <div class="white-text">
+                                            Documents
+                                            <h2 class="m-0 p-0">{{ $countDocument }}</h2>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
-                </div> 
+                </a> 
             </div>
             <div class="col-lg-4 col-md-6 col-sm-12 mb-lg-0 mb-3">
-                <div class="card red">
-                    <div class="card-body z-depth-2">
-                        <table width="100%">
-                            <tr>
-                                <td>
-                                    <i class="fas fa-wallet fa-4x white-text"></i>
-                                </td>
-                                <td class="text-right">
-                                    <div class="white-text">
-                                        portefeuille
-                                        <h2 class="m-0 p-0">{{ session()->get('wallet') . ' $' }}</h2>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
+                <a href="#!" data-toggle="modal" data-target="#walletModal">
+                    <div class="card red">
+                        <div class="card-body z-depth-2">
+                            <table width="100%">
+                                <tr>
+                                    <td>
+                                        <i class="fas fa-wallet fa-4x white-text"></i>
+                                    </td>
+                                    <td class="text-right">
+                                        <div class="white-text">
+                                            portefeuille
+                                            <h2 class="m-0 p-0">{{ session()->get('wallet') . ' $' }}</h2>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
-                </div> 
+                </a> 
             </div>
             <div class="col-lg-4 col-md-6 col-sm-12 mb-lg-0 mb-3">
                 <div class="card orange">
@@ -63,7 +67,7 @@
                                         Téléchargements
                                         <h2 class="m-0 p-0">
                                             @if ($documentsDownloaded == null)
-                                                Aucun
+                                                0
                                             @else
                                                 {{ $documentsDownloaded }}
                                             @endif

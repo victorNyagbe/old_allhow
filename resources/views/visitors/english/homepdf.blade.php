@@ -42,7 +42,7 @@
                     <div class="card z-depth-2">
                         <img src="{{ URL::asset('assets/logos/pdf.jpg') }}" alt="logo all-how" class="card-img-top">
                         <div class="card-body elegant-color">
-                            <h5 class="card-title white-text">How to become an entrepreneur....</h5>
+                            <h5 class="card-title white-text" title="{{ $doc->nom }}">{{ \Illuminate\Support\Str::substr($doc->nom, 0, 20) . "..." }}</h5>
                             <span class="white-text float-right"><i class="fas fa-download"></i> 200</span>
                             <a href="{{ $doc->pathShowDoc() }}" class="btn btn-block green darken-4 white-text d-none d-lg-block">download</a>
                             <a href="{{ $doc->pathShowDoc() }}" class="btn btn-block green darken-4 white-text btn-sm d-block d-lg-none">download</a>
