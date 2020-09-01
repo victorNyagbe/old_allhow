@@ -32,7 +32,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark allhowpdf-color">
     
       <!-- Navbar brand -->
-      <a href="" class="navbar-brand">
+      <a href="{{ route('visitors.home') }}" class="navbar-brand">
         <img class="rounded-circle" src="{{ URL::asset('assets/logos/allhowcom1.jpg') }}" height="50px;" width="50px;">
       </a>
       
@@ -52,7 +52,7 @@
         <!-- Links -->
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="">Accueil
+            <a class="nav-link" href="{{ route('visitors.home') }}">Accueil
               <span class="sr-only">(current)</span>
             </a>
           </li>

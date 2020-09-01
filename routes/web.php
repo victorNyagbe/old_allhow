@@ -13,25 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    $frenchzone = 'frenchzone';
-    return view('visitors.accueil', compact('frenchzone'));
-})->name('visitors.home');
+Route::get('/', 'MainController@accueil')->name('visitors.home');
 
-Route::get('pdf', function () {
-    $frenchzone = 'frenchzone';
-    return view('visitors.accueilpdf', compact('frenchzone'));
-})->name('visitors.homepdf');
+Route::get('pdf', 'MainController@accueilpdf')->name('visitors.homepdf');
 
-Route::get('en/home', function () {
-    $englishzone = 'englishzone';
-    return view('visitors.english.home', compact('englishzone'));
-})->name('visitors.english.home');
+Route::get('en/home','MainController@home' )->name('visitors.english.home');
 
-Route::get('en/pdf', function () {
-    $englishzone = 'englishzone';
-    return view('visitors.english.homepdf', compact('englishzone'));
-})->name('visitors.english.homepdf');
+Route::get('en/pdf', 'MainController@homepdf')->name('visitors.english.homepdf');
 
 Route::group(['prefix' => 'admin'], function () {
 
@@ -93,3 +81,5 @@ Route::post('sellers/forgotPassword/processing', 'VendeurController@forgotPasswo
 Route::get('sellers/resetPassword', 'VendeurController@resetPasswordForm')->name('sellers.resetPasswordForm');
 
 Route::post('sellers/resetPassword/processing', 'VendeurController@resetPassword')->name('sellers.resetPassword');
+
+Route::get('document/{id}-{slug}/show', 'MainController@showDoc')->name('visitors.showDoc');

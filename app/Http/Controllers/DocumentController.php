@@ -37,10 +37,14 @@ class DocumentController extends Controller
         if (request()->has('fichier_doc')) {
             $documentToBeExaminated = Document::create([
                 'nom' => $request->input('document'),
-                'taillepdf' => $taille,
-                'pathpdf' => request()->fichier_doc->storeAs('db/fichiers/temp/pdfs/', time() . "_" . $request->file('fichier_doc')->getClientOriginalName(), 'public'),
                 'status' => 0,
                 'vendeur_id' => session()->get('id')
+            ]);
+
+            $documentFiles = Document::create([
+                'path_pdf' => request()->fichier_doc->storeAs('db/fichiers/temp/pdfs/', time() . "_" . $request->file('fichier_doc')->getClientOriginalName(), 'public'),
+                'taille_pdf' => $taille,
+                'document_id' => $documentToBeExaminated->id
             ]);
         }
 
@@ -52,7 +56,7 @@ class DocumentController extends Controller
             'username' => $vendeur->username,
             'email' => $vendeur->email,
             'nomDoc' => $documentToBeExaminated->nom,
-            'document' => $documentToBeExaminated->pathpdf       
+            'document' => $documentFiles->path       
         ];
 
         Mail::to($allhowMail)->send(new SellerSendDocument($data));

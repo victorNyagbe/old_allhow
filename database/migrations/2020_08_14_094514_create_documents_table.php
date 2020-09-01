@@ -16,10 +16,7 @@ class CreateDocumentsTable extends Migration
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
-            $table->string('taillepdf');
-            $table->string('pathpdf');
-            $table->string('taillevideo')->nullable();
-            $table->string('pathvideo')->nullable();
+            $table->string('reference')->nullable();
             $table->string('vendeur_id');
             $table->integer('downloaded')->nullable();
             $table->string('version')->nullable();

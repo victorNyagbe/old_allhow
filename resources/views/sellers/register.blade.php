@@ -42,6 +42,7 @@
                         </div>   
                     </div>
                     <div class="form-group mt-3">
+                        <a href="{{ route('sellers.loginForm') }}" class="mt-3 float-left">J'ai déjà un compte</a>
                         <button type="submit" class="btn btn-green float-right">Devenir vendeur</button>
                     </div>
                 </form>

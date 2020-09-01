@@ -22,13 +22,14 @@
                         </button>
                     </div>
                 @endif
+
+                <center>
+                    <img src="{{ URL::asset('assets/logos/allhowcom1.jpg') }}" alt="logo allhowpdf" width="150" height="150" class="rounded circle">                 
+                </center>
             
             
                 <form action="{{ route('sellers.login') }}" method="post"> 
 
-                    <center>
-                        <img src="{{ URL::asset('assets/logos/allhowcom1.jpg') }}" alt="logo allhowpdf" width="150" height="150" class="rounded circle">                 
-                    </center>
                     @csrf
                     <div class="form-group">    
                         <input type="email" name="email" id="email" class="form-control" placeholder="E-mail">

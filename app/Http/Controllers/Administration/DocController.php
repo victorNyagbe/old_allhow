@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Document;
 use App\Vendeur;
+use App\Fichier;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\DocumentApprovedMail;
@@ -52,10 +53,12 @@ class DocController extends Controller
             return back()->with('error', 'Ce document est inexistant ou introuvable');
         } else {
 
+            $fileSendBySeller = Fichier::where('document_id', $documentApproved->id)->first();
+
             if (request()->has('docPDFFr') && request()->has('docVideoFr')) {
 
                 File::delete([
-                    public_path('storage/' . $documentApproved->pathpdf)
+                    public_path('storage/' . $fileSendBySeller->path_pdf)
                 ]);
 
                 $taille_pdfFr= $_FILES['docPDFFr']['size'] / 1000000;
@@ -65,25 +68,35 @@ class DocController extends Controller
                 $taille_videoEn = $_FILES['docVideoEn']['size'] / 1000000;
 
                 $documentApproved->update([
-                    'pathpdf' => request()->docPDFFr->storeAs('db/fichiers/fr/pdfs/', time() . "_" . $request->file('docPDFFr')->getClientOriginalName(), 'public'),
-                    'pathvideo' => request()->docVideoFr->storeAs('db/fichiers/fr/videos/', time() . "_" . $request->file('docVideoFr')->getClientOriginalName(), 'public'),
                     'nom' => $request->input('docNameFr'),
                     'vendeur_id' => $request->input('docAuthorId'),
                     'status' => 1,
-                    'taillepdf' => $taille_pdfFr,
-                    'taillevideo' => $taille_videoFr,
+                    'reference' => 'doc_' . time(),
                     'version' => 'french'
                 ]);
 
+                $saveFrenchFiles = Fichier::create([
+                    'path_pdf' => request()->docPDFFr->storeAs('db/fichiers/fr/pdfs/', time() . "_" . $request->file('docPDFFr')->getClientOriginalName(), 'public'),
+                    'path_video' => request()->docVideoFr->storeAs('db/fichiers/fr/videos/', time() . "_" . $request->file('docVideoFr')->getClientOriginalName(), 'public'),
+                    'taille_pdf' => $taille_pdfFr,
+                    'taille_video' => $taille_videoFr,
+                    'document_id' => $documentApproved->id
+                ]);
+
                 $documentTranslated = Document::create([
-                    'pathpdf' => request()->docPDFEn->storeAs('db/fichiers/en/pdfs/', time() . "_" . $request->file('docPDFEn')->getClientOriginalName(), 'public'),
-                    'pathvideo' => request()->docVideoEn->storeAs('db/fichiers/en/videos/', time() . "_" . $request->file('docVideoEn')->getClientOriginalName(), 'public'),
                     'nom' => $request->input('docNameEn'),
                     'vendeur_id' => $request->input('docAuthorId'),
                     'status' => 1,
-                    'taillepdf' => $taille_pdfEn,
-                    'taillevideo' => $taille_videoEn,
+                    'reference' => $documentApproved->reference,
                     'version' => 'english'
+                ]);
+
+                $saveEnglishFiles  = Fichier::create([
+                    'path_pdf' => request()->docPDFEn->storeAs('db/fichiers/en/pdfs/', time() . "_" . $request->file('docPDFEn')->getClientOriginalName(), 'public'),
+                    'path_video' => request()->docVideoEn->storeAs('db/fichiers/en/videos/', time() . "_" . $request->file('docVideoEn')->getClientOriginalName(), 'public'),
+                    'taille_pdf' => $taille_pdfEn,
+                    'taille_video' => $taille_videoEn,
+                    'document_id' => $documentApproved->id
                 ]);
 
             }
@@ -116,6 +129,8 @@ class DocController extends Controller
 
             $seller = Vendeur::where('id', $findDocument->vendeur_id)->first();
 
+            $documentFile = Fichier::where('document_id', $findDocument->id)->first();
+
             $data = [
                 'seller_name' => $seller->username,
                 'seller_email' => $seller->email,
@@ -125,7 +140,7 @@ class DocController extends Controller
             $findDocument->delete();
 
             File::delete([
-                public_path('storage' . $findDocument->pathpdf)
+                public_path('storage/' . $documentFile->path_pdf)
             ]);
 
             Mail::to($seller->email)->send(new DocumentRejectedMail($data));
