@@ -83,3 +83,9 @@ Route::get('sellers/resetPassword', 'VendeurController@resetPasswordForm')->name
 Route::post('sellers/resetPassword/processing', 'VendeurController@resetPassword')->name('sellers.resetPassword');
 
 Route::get('document/{id}-{slug}/show', 'MainController@showDoc')->name('visitors.showDoc');
+
+Route::get('mon-panier', 'CartController@index')->name('visitors.cartIndexDoc');
+
+Route::post('ajouter/doc/panier', 'CartController@store')->name('visitors.cartStoreDoc');
+
+Route::delete('mon-panier/{rowId}', 'CartController@destroy')->name('visitors.cartDestroyDoc');

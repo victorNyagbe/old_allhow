@@ -47,7 +47,7 @@ class MainController extends Controller
                         break;
                 }
 
-                return view('visitors.showDocument', compact('document', 'video_taille', 'video_path', 'pdf_taille', 'pdf_path', 'fileType'));
+                return view('visitors.showDocument', compact('document', 'video_taille', 'video_path', 'pdf_taille', 'pdf_path', 'fileType', 'fileTypeIdentity'));
             
             }
         }

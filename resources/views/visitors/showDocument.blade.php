@@ -34,12 +34,21 @@
                         </tr>
                         <tr>
                             <td>Téléchargements:</td>
-                            <td class="font-weight-bold">{{ $document->downloaded == NUll ? '-' : $document->downloaded }}</td>
+                            <td class="font-weight-bold">{{ $document->downloaded == null ? '-' : $document->downloaded }}</td>
                         </tr>
                     </table>
 
                     <div class="mt-4 text-center">
-                        <a href="" class="btn btn-sm btn white">mettre en panier <i class=" fas fa-shopping-cart"></i></a>
+                        <form action="{{ route('visitors.cartStoreDoc') }}" method="post">
+
+                            @csrf
+                            <input type="hidden" name="document_id" value="{{ $documen->id }}">
+                            <input type="hidden" name="fichier" value="{{ $fileTypeIdentity }}">
+
+                            <button type="submit" class="btn btn-sm white">ajouter au panier <i class="fas fa-shopping-cart"></i></button>
+                            
+                        </form>
+                        
                         <a href="" class="btn btn-sm btn-dark-green">télécharger</a>
                     </div>
                 </div>

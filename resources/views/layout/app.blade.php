@@ -36,8 +36,18 @@
         <img class="rounded-circle" src="{{ URL::asset('assets/logos/allhowcom1.jpg') }}" height="50px;" width="50px;">
       </a>
       
-      <span class="navbar-text white-text d-block d-lg-none">
+      <span class="navbar-text white-text text-center d-block d-lg-none">
         All-how.com
+      </span>
+
+      <span class=" navbar-text d-block d-lg-none">
+        <a href="{{ route('visitors.cartIndexDoc') }}">
+          <i class="fas white-text fa-shopping-cart">
+            @if (Cart::count() > 0)
+              <span class="badge badge-pill badge-light">0</span>
+            @endif
+          </i>
+        </a>
       </span>
       
       <!-- Collapse button -->
@@ -59,6 +69,17 @@
         </ul>
         <span class="navbar-text white-text my-0 py-0 d-none d-lg-block">All-how.com</span>
         <ul class="navbar-nav ml-auto">
+
+            <li class="nav-item">
+              <a href="{{ route('visitors.cartIndexDoc') }}" class="nav-link d-none d-lg-block">
+                <i class="fas white-text fa-shopping-cart">
+                  @if (Cart::count() > 0)
+                    <span class="badge badge-pill badge-light">0</span>
+                  @endif
+                </i>
+              </a>
+            </li>
+
             <li class="nav-item">
               <a href="login-seller" class="nav-link">Se connecter</a>
             </li>
