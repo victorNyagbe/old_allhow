@@ -23,6 +23,20 @@
                 </form>
             </div>
         </div>
+
+        @if ($message = Session::get('success'))
+            <div class="row mt-2">
+                <div class="col-12">
+                    <div class="alert alert-success alert-dismissible text-center fade show" role="alert">
+                        {{ $message }}
+                        <button type="button" class="close" aria-label="close" data-dismiss="alert">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+            </div> 
+        @endif
+
         <?php
             session()->put('identity', '2294');
         ?>

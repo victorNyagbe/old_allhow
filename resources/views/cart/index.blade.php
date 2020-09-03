@@ -1,6 +1,20 @@
 @extends('cart.master')
 
 @section('content')
+
+    @if ($message = Session::get('success'))
+        <div class="row mt-2">
+            <div class="col-12">
+                <div class="alert alert-success alert-dismissible text-center fade show" role="alert">
+                    {{ $message }}
+                    <button type="button" class="close" aria-label="close" data-dismiss="alert">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div> 
+    @endif
+
     <div class="row justify-content-center mt-5">
         @if (Cart::count() > 0)
             <div class="col-12">
@@ -22,10 +36,10 @@
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <div><img src="{{ URL::asset('assets/logos/allhowcom1.jpg') }}" alt="logo" width="50"></div>
-                                        <div class="flex-grow-1 ml-3">{{ \Illuminate\Support\Str::substr($document->model->nom, 0, -4) }}</div>
+                                        <div class="flex-grow-1 ml-3">{{ $document->model->nom }}</div>
                                     </div></td>
                                 <td>{{ $document->model->vendeur->username }}</td>
-                                <td>{{ \Illuminate\Support\Str::substr($document->model->nom, -1, 4) == '2294' ? 'Vidéo' : 'PDF' }}</td>
+                                <td>{{ \Illuminate\Support\Str::substr($document->name, -4) == '2294' ? 'Vidéo' : 'PDF'  }}</td>
                                 <td>{{ $document->model->version == 'french' ? 'Française' : 'Anglaise' }}</td>
                                 <td class="text-right">1</td>
                                 <td class="text-right">1 $</td>

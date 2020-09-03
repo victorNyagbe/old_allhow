@@ -40,7 +40,7 @@ class CartController extends Controller
     {
     
         $duplicata = Cart::search(function ($cartItem, $rowId) use ($request) {
-            return $cartItem == $request->input('document_id');
+            return $cartItem->id == $request->get('document_id');
         });
 
         if ($duplicata->isNotEmpty()) {

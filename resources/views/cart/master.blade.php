@@ -41,7 +41,7 @@
           <a href="">
             <i class="fas white-text fa-shopping-cart">
               @if (Cart::count() > 0)
-                <span class="badge badge-pill badge-light">0</span>
+                <span class="badge badge-pill badge-light">{{ session()->get('count_panier') }}</span>
               @endif
             </i>
           </a>

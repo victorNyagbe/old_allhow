@@ -44,7 +44,7 @@
         <a href="{{ route('visitors.cartIndexDoc') }}">
           <i class="fas white-text fa-shopping-cart">
             @if (Cart::count() > 0)
-              <span class="badge badge-pill badge-light">0</span>
+              <span class="badge badge-pill badge-light">{{ Cart::count() }}</span>
             @endif
           </i>
         </a>
@@ -74,7 +74,8 @@
               <a href="{{ route('visitors.cartIndexDoc') }}" class="nav-link d-none d-lg-block">
                 <i class="fas white-text fa-shopping-cart">
                   @if (Cart::count() > 0)
-                    <span class="badge badge-pill badge-light">0</span>
+                    <?php session()->put('count_panier', Cart::count() ) ?>
+                    <span class="badge badge-pill badge-light">{{ Cart::count() }}</span>
                   @endif
                 </i>
               </a>

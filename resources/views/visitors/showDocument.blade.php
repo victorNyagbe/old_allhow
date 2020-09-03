@@ -42,7 +42,7 @@
                         <form action="{{ route('visitors.cartStoreDoc') }}" method="post">
 
                             @csrf
-                            <input type="hidden" name="document_id" value="{{ $documen->id }}">
+                            <input type="hidden" name="document_id" value="{{ $document->id }}">
                             <input type="hidden" name="fichier" value="{{ $fileTypeIdentity }}">
 
                             <button type="submit" class="btn btn-sm white">ajouter au panier <i class="fas fa-shopping-cart"></i></button>
